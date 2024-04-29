@@ -94,6 +94,7 @@ variable "primary" {
 variable "network_interface_tags" {
   description = "The tags to associate with your network network interface."
   type        = map(string)
+  default     = {}
 }
 
 

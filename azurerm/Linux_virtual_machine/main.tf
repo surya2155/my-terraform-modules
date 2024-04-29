@@ -125,8 +125,8 @@ resource "azurerm_linux_virtual_machine" "az_linux_virtual_machine" {
 # -
 
 locals {
-  key_permissions    = ["get", "wrapkey", "unwrapkey"]
-  secret_permissions = ["get", "set", "list"]
+  key_permissions    = ["Get", "WrapKey", "UnwrapKey"]
+  secret_permissions = ["Get", "Set", "List"]
 }
 # -
 # - Adding Access Policies for Disk Encryption Set 

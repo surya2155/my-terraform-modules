@@ -162,6 +162,7 @@ variable "enable_ultra_ssd" {
 variable "admin_ssh_key" {
   description = "Specifies public_key of admin user."
   type        = list(any)
+  default     = []
 }
 
 # source_image_reference reference vars
@@ -197,7 +198,7 @@ variable "identity" {
 variable "create_disk_encryption_set" {
   description = "if create_disk_encryption_set is set to true, the vm data disk will create with encryption"
   type        = bool
-  default     = true
+  default     = false
 }
 variable "key_vault_id" {
   description = "id of the key vault"
@@ -215,7 +216,7 @@ variable "key_vault_key_id" {
 ## VM Extenstions 
 variable "install_loganalytics_agent" {
   type        = bool
-  default     = true
+  default     = false
   description = "if install_loganalytics_agent is true, log analytics agent will be installed in vm's"
 }
 
