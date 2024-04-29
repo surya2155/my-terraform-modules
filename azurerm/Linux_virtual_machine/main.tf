@@ -164,54 +164,54 @@ resource "azurerm_key_vault_access_policy" "az_key_vault_access_cmk_policy" {
 # -
 # - Enabling Azure Monitor Dependency virtual machine extension for Azure Linux VM 
 # -
-resource "azurerm_virtual_machine_extension" "az_log_analytics_dep_agent" {
-  count                      = var.install_loganalytics_dependency_agent ? 1 : 0
-  name                       = var.loganalytics_dep_agent_name
-  virtual_machine_id         = azurerm_linux_virtual_machine.az_linux_virtual_machine.id
-  publisher                  = "Microsoft.Azure.Monitoring.DependencyAgent"
-  type                       = "DependencyAgentLinux"
-  type_handler_version       = var.lag_dep_type_handler_version
-  auto_upgrade_minor_version = true
-  settings                   = <<SETTINGS
-    {
-      "workspaceId": "${var.law_workspace_id}"       
-    }
-  SETTINGS
+# resource "azurerm_virtual_machine_extension" "az_log_analytics_dep_agent" {
+#   count                      = var.install_loganalytics_dependency_agent ? 1 : 0
+#   name                       = var.loganalytics_dep_agent_name
+#   virtual_machine_id         = azurerm_linux_virtual_machine.az_linux_virtual_machine.id
+#   publisher                  = "Microsoft.Azure.Monitoring.DependencyAgent"
+#   type                       = "DependencyAgentLinux"
+#   type_handler_version       = var.lag_dep_type_handler_version
+#   auto_upgrade_minor_version = true
+#   settings                   = <<SETTINGS
+#     {
+#       "workspaceId": "${var.law_workspace_id}"       
+#     }
+#   SETTINGS
 
-  protected_settings = <<SETTINGS
-    {
-      "workspaceKey": "${var.law_workspace_key}"
-    }
-  SETTINGS
-  depends_on         = [azurerm_linux_virtual_machine.az_linux_virtual_machine]
-  tags               = var.linux_vm_tags
-}
+#   protected_settings = <<SETTINGS
+#     {
+#       "workspaceKey": "${var.law_workspace_key}"
+#     }
+#   SETTINGS
+#   depends_on         = [azurerm_linux_virtual_machine.az_linux_virtual_machine]
+#   tags               = var.linux_vm_tags
+# }
 
 # -
 # - Enable Log Analytics Diagnostics and Logs on Azure Linux VM
 # -
-resource "azurerm_virtual_machine_extension" "az_log_analytics_agent" {
-  count                      = var.install_loganalytics_agent ? 1 : 0
-  name                       = var.loganalytics_agent_name
-  virtual_machine_id         = azurerm_linux_virtual_machine.az_linux_virtual_machine.id
-  publisher                  = "Microsoft.EnterpriseCloud.Monitoring"
-  type                       = "OmsAgentForLinux"
-  type_handler_version       = var.lag_type_handler_version
-  auto_upgrade_minor_version = true
+# resource "azurerm_virtual_machine_extension" "az_log_analytics_agent" {
+#   count                      = var.install_loganalytics_agent ? 1 : 0
+#   name                       = var.loganalytics_agent_name
+#   virtual_machine_id         = azurerm_linux_virtual_machine.az_linux_virtual_machine.id
+#   publisher                  = "Microsoft.EnterpriseCloud.Monitoring"
+#   type                       = "OmsAgentForLinux"
+#   type_handler_version       = var.lag_type_handler_version
+#   auto_upgrade_minor_version = true
 
-  settings = <<SETTINGS
-     {
-       "workspaceId": "${var.law_workspace_id}"       
-     }
-   SETTINGS
+#   settings = <<SETTINGS
+#      {
+#        "workspaceId": "${var.law_workspace_id}"       
+#      }
+#    SETTINGS
 
-  protected_settings = <<SETTINGS
-     {
-       "workspaceKey": "${var.law_workspace_key}"
-     }
-   SETTINGS
+#   protected_settings = <<SETTINGS
+#      {
+#        "workspaceKey": "${var.law_workspace_key}"
+#      }
+#    SETTINGS
 
-  tags = var.linux_vm_tags
+#   tags = var.linux_vm_tags
 
-  depends_on = [azurerm_linux_virtual_machine.az_linux_virtual_machine, azurerm_virtual_machine_extension.az_log_analytics_dep_agent]
-}
+#   depends_on = [azurerm_linux_virtual_machine.az_linux_virtual_machine, azurerm_virtual_machine_extension.az_log_analytics_dep_agent]
+# }
